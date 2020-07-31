@@ -12,19 +12,23 @@ var rnd = rand.New(rand.NewSource(time.Now().UnixNano()))
 func main() {
 	for i := 0; i < 10; i++ {
 		id := rnd.Intn(10) + 1
-		if c, ok := queryCache(id); ok {
-			fmt.Println("From cache")
-			fmt.Println(c)
-			continue
-		}
-		if c, ok := queryDatabase(id); ok {
-			fmt.Println("from database")
-			fmt.Println(c)
-			continue
-		}
-		fmt.Printf("Car not found with id: '%v'", id)
+
+		func(id int) {
+			if c, ok := queryCache(id); ok {
+				fmt.Println("From cache")
+				fmt.Println(c)
+			}
+		}(id)
+		func(id int) {
+			if c, ok := queryDatabase(id); ok {
+				fmt.Println("from database")
+				fmt.Println(c)
+			}
+		}(id)
+		//fmt.Printf("Car not found with id: '%v'", id)
 		time.Sleep(150 * time.Millisecond)
 	}
+	time.Sleep(2 * time.Millisecond)
 
 }
 
