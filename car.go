@@ -13,7 +13,7 @@ func (car Car) String() string {
 	return fmt.Sprintf(
 		"Make:\t\t%q\n"+
 			"Model:\t\t%q\n"+
-			"Released:\t%v\n", book.Make, book.Model, book.YearReleased)
+			"Released:\t%v\n", car.Make, car.Model, car.YearReleased)
 }
 
 var cars = []Car{
